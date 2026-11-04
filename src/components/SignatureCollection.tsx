@@ -21,9 +21,17 @@ export const SignatureCollection: React.FC<SignatureCollectionProps> = ({
   // We take the signature products (8 items for a balanced 3D round cylinder)
   const signatureItems = products.slice(0, 8);
 
-  // Prepare images for Originkit RoundCarousel
+  // Prepare images for Originkit RoundCarousel with full details
   const carouselImages = signatureItems.map((p) => ({
     src: p.image,
+    id: p.id,
+    name: p.name,
+    tagline: p.tagline,
+    description: p.description,
+    price: p.price,
+    badge: p.badge,
+    flavorNotes: p.flavorNotes,
+    product: p,
   }));
 
   useEffect(() => {
@@ -114,28 +122,34 @@ export const SignatureCollection: React.FC<SignatureCollectionProps> = ({
             </div>
 
             {/* 3D Round Carousel Viewport Container with Seamless Transparent Background */}
-            <div className="w-full h-[480px] sm:h-[540px] md:h-[600px] relative select-none">
+            <div className="w-full h-[500px] sm:h-[560px] md:h-[620px] relative select-none">
               <RoundCarousel
                 images={carouselImages}
-                imageWidth={280}
-                imageHeight={320}
+                imageWidth={290}
+                imageHeight={360}
                 spacing={2.6}
-                speed={5}
+                speed={0}
+                autoRotate={false}
                 direction={sliderDirection}
                 drag={true}
                 sensitivity={5}
                 tilt={-6}
                 perspective={2800}
                 cornerRadius={24}
-                innerDim={4}
+                innerDim={3.5}
                 background="transparent"
+                onItemClick={(item) => {
+                  if (item.product) {
+                    onSelectProduct(item.product);
+                  }
+                }}
               />
             </div>
 
             {/* Bottom Gentle Hint */}
             <div className="text-center pt-3">
               <p className="font-serif italic text-xs text-[#8C7079]">
-                Drag to spin the 3D carousel in real-time • Select any creation below for tasting notes & ordering
+                Hover or click any cake to reveal flavor notes & pricing • Drag horizontally to spin the 3D gallery
               </p>
             </div>
           </div>
