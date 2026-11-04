@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Sparkles, MoveHorizontal, ArrowRight, RotateCw } from 'lucide-react';
+import { Sparkles, MoveHorizontal, ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { Product } from '../types';
-import RoundCarousel from './originkit/ui/roundcarousel';
+import SmoothScrollSlider from './originkit/ui/smooth-scroll-slider';
 
 interface SignatureCollectionProps {
   products: Product[];
@@ -18,20 +18,16 @@ export const SignatureCollection: React.FC<SignatureCollectionProps> = ({
   const headingRef = useRef<HTMLDivElement>(null);
   const [sliderDirection, setSliderDirection] = useState<'right' | 'left'>('right');
 
-  // We take the signature products (8 items for a balanced 3D round cylinder)
-  const signatureItems = products.slice(0, 8);
+  // We take the signature products
+  const signatureItems = products.filter((p) => p.isSignature);
 
-  // Prepare images for Originkit RoundCarousel with full details
-  const carouselImages = signatureItems.map((p) => ({
-    src: p.image,
-    id: p.id,
-    name: p.name,
-    tagline: p.tagline,
-    description: p.description,
-    price: p.price,
-    badge: p.badge,
-    flavorNotes: p.flavorNotes,
-    product: p,
+  // Prepare images for Originkit SmoothScrollSlider
+  const sliderImages = signatureItems.map((p) => ({
+    image: {
+      src: p.image,
+      alt: p.name,
+    },
+    offsetY: 0,
   }));
 
   useEffect(() => {
@@ -84,72 +80,63 @@ export const SignatureCollection: React.FC<SignatureCollectionProps> = ({
             Made to Make You Smile
           </h2>
           <p className="text-base sm:text-lg text-[#57434A]/80 font-light max-w-xl mx-auto leading-relaxed">
-            Little indulgences, crafted for unforgettable moments. Spin and explore our 3D signature creations below.
+            Little indulgences, crafted for unforgettable moments. Glide through our signature creations below.
           </p>
         </div>
 
         {/* ========================================================================= */}
-        {/* ORIGINKIT 3D ROUND CAROUSEL STAGE FOR SIGNATURE BAKES */}
+        {/* ORIGINKIT SMOOTH SCROLL SLIDER STAGE FOR SIGNATURE BAKES */}
         {/* ========================================================================= */}
-        <div className="mb-12">
+        <div className="mb-10">
           <div className="relative w-full overflow-hidden">
             
             {/* Top Stage Control Header */}
-            <div className="px-4 sm:px-6 mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div className="px-4 sm:px-6 mb-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div className="flex items-center space-x-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#A64D65] animate-pulse" />
                 <span className="text-[11px] uppercase tracking-[0.24em] font-bold text-[#A64D65]">
-                  Interactive 3D Round Carousel
+                  Interactive Signature Slider
                 </span>
               </div>
 
               <div className="flex items-center space-x-3 text-xs text-[#57434A]">
                 <div className="hidden sm:flex items-center space-x-1.5 bg-[#F8E5E8] px-3.5 py-1.5 rounded-full text-[11px] text-[#542638] border border-[#E8B7C1]/40">
                   <MoveHorizontal className="w-3.5 h-3.5 text-[#A64D65]" />
-                  <span>Drag or swipe horizontally to spin</span>
+                  <span>Drag or scroll mouse wheel</span>
                 </div>
                 <button
                   type="button"
                   onClick={() =>
                     setSliderDirection((prev) => (prev === 'right' ? 'left' : 'right'))
                   }
-                  className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-[#FFFDF8] hover:bg-[#F8E5E8] text-[#542638] text-[11px] uppercase tracking-wider font-semibold transition-colors border border-[#C98291]/50 shadow-sm"
+                  className="px-3.5 py-1.5 rounded-full bg-[#FFFDF8] hover:bg-[#F8E5E8] text-[#542638] text-[11px] uppercase tracking-wider font-semibold transition-colors border border-[#C98291]/50 shadow-sm"
                 >
-                  <RotateCw className="w-3 h-3 text-[#A64D65]" />
-                  <span>Direction: {sliderDirection}</span>
+                  Direction: {sliderDirection}
                 </button>
               </div>
             </div>
 
-            {/* 3D Round Carousel Viewport Container with Seamless Transparent Background */}
-            <div className="w-full h-[500px] sm:h-[560px] md:h-[620px] relative select-none">
-              <RoundCarousel
-                images={carouselImages}
-                imageWidth={290}
-                imageHeight={360}
-                spacing={2.6}
-                speed={0}
-                autoRotate={false}
-                direction={sliderDirection}
-                drag={true}
-                sensitivity={5}
-                tilt={-6}
-                perspective={2800}
-                cornerRadius={24}
-                innerDim={3.5}
+            {/* Slider Viewport Container with Transparent Background */}
+            <div className="w-full h-[460px] sm:h-[520px] md:h-[580px] relative">
+              <SmoothScrollSlider
+                images={sliderImages}
+                slideWidth={340}
+                slideHeight={380}
+                spacing={2.5}
+                smoothness={8}
+                radius={28}
+                dim={0}
                 background="transparent"
-                onItemClick={(item) => {
-                  if (item.product) {
-                    onSelectProduct(item.product);
-                  }
-                }}
+                direction={sliderDirection}
+                sensitivity={6}
+                loop={true}
               />
             </div>
 
             {/* Bottom Gentle Hint */}
-            <div className="text-center pt-3">
+            <div className="text-center pt-2">
               <p className="font-serif italic text-xs text-[#8C7079]">
-                Hover or click any cake to reveal flavor notes & pricing • Drag horizontally to spin the 3D gallery
+                Hover and drag left or right to glide through each handcrafted layer
               </p>
             </div>
           </div>
@@ -157,7 +144,7 @@ export const SignatureCollection: React.FC<SignatureCollectionProps> = ({
 
         {/* Quick Signature Selector Pills */}
         <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2 max-w-4xl mx-auto">
-          {signatureItems.map((item) => (
+          {signatureItems.slice(0, 6).map((item) => (
             <button
               key={item.id}
               onClick={() => onSelectProduct(item)}
