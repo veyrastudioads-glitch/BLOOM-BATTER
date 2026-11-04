@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Sparkles, MoveHorizontal, ArrowRight } from 'lucide-react';
+import { Sparkles, MoveHorizontal, ArrowRight, RotateCw } from 'lucide-react';
 import gsap from 'gsap';
 import { Product } from '../types';
-import SmoothScrollSlider from './originkit/ui/smooth-scroll-slider';
+import RoundCarousel from './originkit/ui/roundcarousel';
 
 interface SignatureCollectionProps {
   products: Product[];
@@ -21,13 +21,9 @@ export const SignatureCollection: React.FC<SignatureCollectionProps> = ({
   // We take the signature products
   const signatureItems = products.filter((p) => p.isSignature);
 
-  // Prepare images for Originkit SmoothScrollSlider
-  const sliderImages = signatureItems.map((p) => ({
-    image: {
-      src: p.image,
-      alt: p.name,
-    },
-    offsetY: 0,
+  // Prepare images for Originkit RoundCarousel
+  const carouselImages = signatureItems.map((p) => ({
+    src: p.image,
   }));
 
   useEffect(() => {
@@ -85,7 +81,7 @@ export const SignatureCollection: React.FC<SignatureCollectionProps> = ({
         </div>
 
         {/* ========================================================================= */}
-        {/* ORIGINKIT SMOOTH SCROLL SLIDER STAGE FOR SIGNATURE BAKES */}
+        {/* ORIGINKIT 3D ROUND CAROUSEL STAGE FOR SIGNATURE BAKES */}
         {/* ========================================================================= */}
         <div className="mb-10">
           <div className="relative w-full overflow-hidden">
@@ -95,41 +91,44 @@ export const SignatureCollection: React.FC<SignatureCollectionProps> = ({
               <div className="flex items-center space-x-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#A64D65] animate-pulse" />
                 <span className="text-[11px] uppercase tracking-[0.24em] font-bold text-[#A64D65]">
-                  Interactive Signature Slider
+                  Interactive Signature Carousel
                 </span>
               </div>
 
               <div className="flex items-center space-x-3 text-xs text-[#57434A]">
                 <div className="hidden sm:flex items-center space-x-1.5 bg-[#F8E5E8] px-3.5 py-1.5 rounded-full text-[11px] text-[#542638] border border-[#E8B7C1]/40">
                   <MoveHorizontal className="w-3.5 h-3.5 text-[#A64D65]" />
-                  <span>Drag or scroll mouse wheel</span>
+                  <span>Drag or swipe horizontally</span>
                 </div>
                 <button
                   type="button"
                   onClick={() =>
                     setSliderDirection((prev) => (prev === 'right' ? 'left' : 'right'))
                   }
-                  className="px-3.5 py-1.5 rounded-full bg-[#FFFDF8] hover:bg-[#F8E5E8] text-[#542638] text-[11px] uppercase tracking-wider font-semibold transition-colors border border-[#C98291]/50 shadow-sm"
+                  className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-[#FFFDF8] hover:bg-[#F8E5E8] text-[#542638] text-[11px] uppercase tracking-wider font-semibold transition-colors border border-[#C98291]/50 shadow-sm"
                 >
-                  Direction: {sliderDirection}
+                  <RotateCw className="w-3 h-3 text-[#A64D65]" />
+                  <span>Direction: {sliderDirection}</span>
                 </button>
               </div>
             </div>
 
-            {/* Slider Viewport Container with Transparent Background */}
-            <div className="w-full h-[460px] sm:h-[520px] md:h-[580px] relative">
-              <SmoothScrollSlider
-                images={sliderImages}
-                slideWidth={340}
-                slideHeight={380}
-                spacing={2.5}
-                smoothness={8}
-                radius={28}
-                dim={0}
-                background="transparent"
+            {/* 3D Round Carousel Viewport Container with Transparent Background */}
+            <div className="w-full h-[480px] sm:h-[520px] md:h-[580px] relative select-none">
+              <RoundCarousel
+                images={carouselImages}
+                imageWidth={280}
+                imageHeight={320}
+                spacing={2.6}
+                speed={3}
                 direction={sliderDirection}
-                sensitivity={6}
-                loop={true}
+                drag={true}
+                sensitivity={4}
+                tilt={-6}
+                perspective={2800}
+                cornerRadius={22}
+                innerDim={3.5}
+                background="transparent"
               />
             </div>
 

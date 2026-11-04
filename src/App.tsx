@@ -15,7 +15,7 @@ import { CustomCakeModal } from './components/CustomCakeModal';
 import { WhatsAppFloatingPill } from './components/WhatsAppFloatingPill';
 
 // Import the Originkit Smooth Scroll Slider component
-import SmoothScrollSlider from './components/originkit/ui/smooth-scroll-slider';
+import RoundCarousel from './components/originkit/ui/roundcarousel';
 
 import { PRODUCTS } from './data/products';
 import { Product } from './types';
@@ -60,7 +60,7 @@ export const App: React.FC = () => {
   if (viewMode === 'originkit') {
     return (
       <div className="w-screen h-screen bg-[#000000] flex items-center justify-center overflow-hidden relative">
-        <SmoothScrollSlider />
+        <RoundCarousel />
         
         {/* Floating switch to toggle back to the full bakery experience */}
         <div className="absolute top-5 left-5 z-50">
