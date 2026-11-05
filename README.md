@@ -2,7 +2,7 @@
 # BLOOM & BATTER — Premium Boutique Home Bakery
 
 > **"Baked with love. Styled with elegance."**  
-> *An independent portfolio concept art-directed and developed by Veyra Studio.*
+> *An independent portfolio concept art-directed and developed by Pixel by Geo.*
 
 A luxury boutique home bakery website designed with editorial elegance, romantic rose-inspired aesthetics, smooth GSAP and Lenis motion design, and WhatsApp ordering workflows.
 
@@ -44,7 +44,7 @@ A luxury boutique home bakery website designed with editorial elegance, romantic
 8. **Instagram & Atelier Gallery:** Staggered visual diary with full-screen lightbox preview.
 9. **Demonstration Testimonials:** Refined editorial cards clearly identified as portfolio sample content.
 10. **Final Closing CTA:** Rose-tinted statement section for celebration orders.
-11. **Minimal Luxury Footer:** Studio credit to Veyra Studio, quick atelier navigation, and contact hours.
+11. **Minimal Luxury Footer:** Studio credit to Pixel by Geo, quick atelier navigation, and contact hours.
 12. **Sticky WhatsApp Floating Action Pill:** Quick-access ordering button with subtle notification pulse.
 
 ---
@@ -101,5 +101,5 @@ export const SITE_CONFIG = {
 
 ---
 
-*Independent website concept created by Veyra Studio.*
+*Independent website concept created by Pixel by Geo.*
 

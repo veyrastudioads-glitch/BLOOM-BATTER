@@ -3,7 +3,7 @@ export const SITE_CONFIG = {
   tagline: 'Baked with love. Styled with elegance.',
   heroHeadline: 'Sweet moments, beautifully made.',
   heroSubheadline: "Thoughtfully handcrafted cakes and treats for life's most special celebrations.",
-  studioCredit: 'Independent website concept by Veyra Studio',
+  studioCredit: 'Independent website concept by Pixel by Geo',
   
   // Configurable contact details (placeholder format for demonstration)
   whatsapp: {

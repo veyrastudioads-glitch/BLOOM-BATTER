@@ -151,7 +151,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenCustomEnquiry }) => {
             <p>© {new Date().getFullYear()} BLOOM &amp; BATTER. All rights reserved.</p>
             <span className="hidden sm:inline text-[#E8B7C1]">•</span>
             <p className="text-[#A64D65] font-medium">
-              Independent website concept by Veyra Studio
+              Independent website concept by Pixel by Geo
             </p>
           </div>
 
