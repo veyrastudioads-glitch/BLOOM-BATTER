@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Sparkles, MoveHorizontal, ArrowRight, RotateCw } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { Product } from '../types';
 import RoundCarousel from './originkit/ui/roundcarousel';
@@ -16,7 +16,6 @@ export const SignatureCollection: React.FC<SignatureCollectionProps> = ({
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
-  const [sliderDirection, setSliderDirection] = useState<'right' | 'left'>('right');
 
   // We take the signature products
   const signatureItems = products.filter((p) => p.isSignature);
@@ -85,34 +84,6 @@ export const SignatureCollection: React.FC<SignatureCollectionProps> = ({
         {/* ========================================================================= */}
         <div className="mb-10">
           <div className="relative w-full overflow-hidden">
-            
-            {/* Top Stage Control Header */}
-            <div className="px-4 sm:px-6 mb-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-              <div className="flex items-center space-x-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#A64D65] animate-pulse" />
-                <span className="text-[11px] uppercase tracking-[0.24em] font-bold text-[#A64D65]">
-                  Interactive Signature Carousel
-                </span>
-              </div>
-
-              <div className="flex items-center space-x-3 text-xs text-[#57434A]">
-                <div className="hidden sm:flex items-center space-x-1.5 bg-[#F8E5E8] px-3.5 py-1.5 rounded-full text-[11px] text-[#542638] border border-[#E8B7C1]/40">
-                  <MoveHorizontal className="w-3.5 h-3.5 text-[#A64D65]" />
-                  <span>Drag or swipe horizontally</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setSliderDirection((prev) => (prev === 'right' ? 'left' : 'right'))
-                  }
-                  className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-[#FFFDF8] hover:bg-[#F8E5E8] text-[#542638] text-[11px] uppercase tracking-wider font-semibold transition-colors border border-[#C98291]/50 shadow-sm"
-                >
-                  <RotateCw className="w-3 h-3 text-[#A64D65]" />
-                  <span>Direction: {sliderDirection}</span>
-                </button>
-              </div>
-            </div>
-
             {/* 3D Round Carousel Viewport Container with Transparent Background */}
             <div className="w-full h-[480px] sm:h-[520px] md:h-[580px] relative select-none">
               <RoundCarousel
@@ -121,7 +92,7 @@ export const SignatureCollection: React.FC<SignatureCollectionProps> = ({
                 imageHeight={320}
                 spacing={2.6}
                 speed={3}
-                direction={sliderDirection}
+                direction="left"
                 drag={true}
                 sensitivity={4}
                 tilt={-6}
